@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Quiz.EntityModels.Quote>
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<head>
+
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/bundles/jquery")
+
+</head>
+
+<div class="jumbotron" style="width:50%;margin:0 auto;background-color:aliceblue">
+    <div id="content">
+        <h2 style="margin-bottom:50px">Who said that?</h2>
+
+        @foreach (var q in Model)
+        {
+            <div class="quotes">
+
+                <p>"@q.QuoteContent"</p>
+                @Html.HiddenFor(i => @q.CorrectAnswer)
+
+                @foreach (var a in q.PossibleAnswers)
+                {
+                 
+                  <input type="button" value="@a.AnswerContent"class="btn btn-default btn-sm" style="margin:0px 150px;width:150px;font-size:16px" onclick="checkAnswer('@a.AnswerContent','@q.CorrectAnswer')"/>
+                   
+                }
+            </div>
+        }
+            <button id="next" class="btn btn-primary btn-sm" style="margin:30px 150px;width:150px;font-size:15px">Next</button>
+
+    </div>
+    <div id="message"></div>
+</div>
+
+<script>
+    var totalQuotes = $('.quotes').size();
+    var currentQuote = 0;
+    var score = 0;
+    $quotes = $('.quotes');
+    $quotes.hide();
+    $($quotes.get(currentQuote)).fadeIn();
+
+    $('#next').hide();
+    $('#next').click(function () {
+
+        $($quotes.get(currentQuote)).fadeOut(function () {
+            currentQuote = currentQuote + 1;
+            if (currentQuote == totalQuotes) {
+                showEnd();
+
+            } else {
+                $($quotes.get(currentQuote)).fadeIn();
+                $('#message').hide();
+            }
+            $('#next').hide();
+        });
+    });
+    function checkAnswer(suggested, correct) {
+        $('#message').show();
+        $('#next').show();
+        if (suggested === correct) {
+            $('#message').text(`Correct!The right answer is: ${correct}`);
+            score++;
+        } else {
+            $('#message').text(`Sorry, you are wrong! The right answer is: ${correct}`);
+        }
+      
+    }
+    function showEnd() {
+      
+        var text = $('#content').text(`Your score is    ${score}`);
+        $('#content').append($(`</br><button style="width:440px;margin-top:30px">@Html.ActionLink("Start Again", "MultipleChoice", "Home")</button>`))
+        $('#content').append($(`</br><button style="width:440px;margin-top:30px">@Html.ActionLink("Binary game","Quiz","Home")</button>`))
+        $('#message').hide();
+    };
+</script>

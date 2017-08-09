@@ -1,0 +1,9 @@
+C:\Users\User\Documents\Visual Studio 2015\Projects\QuotesQuiz\Quiz.Models\bin\Debug\Quiz.Models.dll.config
+C:\Users\User\Documents\Visual Studio 2015\Projects\QuotesQuiz\Quiz.Models\bin\Debug\Quiz.Models.dll
+C:\Users\User\Documents\Visual Studio 2015\Projects\QuotesQuiz\Quiz.Models\bin\Debug\Quiz.Models.pdb
+C:\Users\User\Documents\Visual Studio 2015\Projects\QuotesQuiz\Quiz.Models\bin\Debug\EntityFramework.dll
+C:\Users\User\Documents\Visual Studio 2015\Projects\QuotesQuiz\Quiz.Models\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\User\Documents\Visual Studio 2015\Projects\QuotesQuiz\Quiz.Models\bin\Debug\EntityFramework.xml
+C:\Users\User\Documents\Visual Studio 2015\Projects\QuotesQuiz\Quiz.Models\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\User\Documents\Visual Studio 2015\Projects\QuotesQuiz\Quiz.Models\obj\Debug\Quiz.Models.dll
+C:\Users\User\Documents\Visual Studio 2015\Projects\QuotesQuiz\Quiz.Models\obj\Debug\Quiz.Models.pdb

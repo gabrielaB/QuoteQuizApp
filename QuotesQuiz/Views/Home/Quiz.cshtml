@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Quiz.EntityModels.Quote>
+
+@{
+    ViewBag.Title = "Home Page";
+
+}
+
+<head>
+
+    @Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+    @Scripts.Render("~/bundles/jquery")
+
+</head>
+
+
+<div class="jumbotron" style="width:50%;margin:0 auto;background-color:aliceblue">
+    <div id="content">
+        <h2 style="margin-bottom:50px">Who said that?</h2>
+
+        @foreach (var q in Model)
+        {
+            <div class="quotes">
+                <p>"@q.QuoteContent"</p>
+                <p id="correct" style="visibility:hidden">@q.CorrectAnswer</p>
+                <p id="suggested" style="text-align:center;border:1px solid black;border-radius:30px">@q.SuggestedAnswer</p>
+                <input type="button" value="Yes" class="btn btn-success btn-sm" style="margin-left:50px;width:120px;font-size:15px" onclick="checkYes('@q.SuggestedAnswer','@q.CorrectAnswer')" />
+                <input type="button" value="No" class="btn btn-danger btn-sm" style="margin-left:50px;width:120px;font-size:15px" onclick="checkNo('@q.SuggestedAnswer','@q.CorrectAnswer')" />
+            </div>
+        }
+        <p id="show-hide-btn"><button id="next" class="btn btn-default btn-sm" style="margin:30px 177px;font-size:15px;width:120px">Next</button></p>
+     
+    </div>
+
+    <div id="message"></div>
+</div>
+
+<script>
+
+    var totalQuotes = $('.quotes').size();
+    var currentQuote = 0;
+    var score =0;
+    $quotes = $('.quotes');
+    $quotes.hide();
+    $($quotes.get(currentQuote)).fadeIn();
+
+    $('#show-hide-btn').hide();
+    $('#next').click(function () {
+
+        $($quotes.get(currentQuote)).fadeOut(function () {
+            currentQuote = currentQuote + 1;
+            if (currentQuote == totalQuotes) {
+                showEnd();
+
+            } else {
+                $($quotes.get(currentQuote)).fadeIn();
+                $('#message').hide();
+            }
+            $('#yes').show();
+            $('#no').show();
+            $('#show-hide-btn').hide();
+        });
+    });
+
+    function checkYes(suggested,correct) {
+        $('#message').show();
+
+            if (suggested === correct) {
+
+                $('#message').text(`Correct!The right answer is: ${correct}`);
+                score++;
+            }
+            else {
+                $('#message').text(`Sorry, you are wrong! The right answer is: ${correct}`)
+            }
+
+        $('#yes').hide();
+        $('#no').hide();
+        $('#show-hide-btn').show();
+    };
+
+    function checkNo(suggested, correct) {
+        $('#message').show();
+
+        if (suggested !== correct) {
+
+            $('#message').text(`Correct!The right answer is: ${correct}`);
+              score++;
+        }
+        else {
+            $('#message').text(`Sorry, you are wrong! The right answer is: ${correct}`);
+        }
+
+        $('#yes').hide();
+        $('#no').hide();
+        $('#show-hide-btn').show();
+    };
+
+
+    function showEnd() {
+        var text = $('#content').text(`Your score is      ${score}.`);
+        $('#content').append($(`</br><button style="width:440px;margin-top:30px">@Html.ActionLink("Start Again","Quiz","Home")</button>`))
+        $('#content').append($(`</br><button style="width:440px;margin-top:30px">@Html.ActionLink("Multiple Choice game","MultipleChoice","Home")</button>`))
+        
+        $('#message').hide();
+    };
+</script>

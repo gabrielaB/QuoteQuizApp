@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Quiz.EntityModels.Quote>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<p>@Model.First().QuoteContent</p>
+<p style="padding-left:150px;padding-top:20px">@Model.First().CorrectAnswer</p>
+@Ajax.ActionLink("Next", // <-- Text to display
+                 "Next", // <-- Action Method Name
+                 new AjaxOptions
+                 {
+                     UpdateTargetId = "quote", // <-- DOM element ID to update
+                     InsertionMode = InsertionMode.Replace, // <-- Replace the content of DOM element
+                 })
